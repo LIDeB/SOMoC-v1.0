@@ -1,0 +1,6 @@
+streamlit==1.4.0
+rdkit-pypi
+validclust
+molvs
+umap-learn
+plotly
