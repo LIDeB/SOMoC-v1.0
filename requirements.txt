@@ -4,3 +4,4 @@ validclust
 molvs
 umap-learn
 plotly
+click==7.1.2
