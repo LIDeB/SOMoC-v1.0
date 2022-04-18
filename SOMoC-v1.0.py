@@ -138,7 +138,7 @@ def Get_input_data():
         data = pd.read_csv(input_file, delimiter=',', header=None)
     else:
         name = Get_name("test/focal_adhesion.csv")
-        data = pd.read_csv("test/focal_adhesion.csv", delimiter=',', header=None)
+        data = pd.read_csv("test/focal_adhesion.csv", delimiter=',' , index_col=None)
     return data, name
 
 def Download_CSV(df, name:str, filetype:str):
