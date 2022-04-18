@@ -132,10 +132,15 @@ def Get_name(archive: str):
 
 def Get_input_data():
     """Get data from user input or use test dataset"""
-
+  
     if input_file is not None:
         name = input_file.name
-        data = pd.read_csv(input_file, delimiter=',', header=None)
+        #data1 = pd.read_csv(input_file, delimiter=',', header=0)
+        data = pd.read_csv(input_file)
+        if "SMILES" in data:
+            list_of_smiles = data["SMILES"]
+        else:
+            list_of_smiles = data.iloc[:, 0]
     else:
         name = Get_name("test/focal_adhesion.csv")
         data = pd.read_csv("test/focal_adhesion.csv", delimiter=',' , index_col=None)
