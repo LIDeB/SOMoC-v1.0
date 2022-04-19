@@ -9,6 +9,7 @@
 import pandas as pd
 from array import array
 import time
+start = time.time()
 import os
 from datetime import date
 import numpy as np
@@ -429,7 +430,12 @@ def Setting_info():
     settings.append(["n_init:", str(n_init)])
     settings.append(["init_params",str(init_params)])
     settings.append(["covariance_type",str(covariance_type)])       
-    settings.append(["",""])           
+    settings.append(["",""])
+    end = time.time()
+    hours, rem = divmod(end-start, 3600)
+    minutes, seconds = divmod(rem, 60)
+    settings.append(["{:0>2}:{:0>2}:{:05.2f}".format(int(hours),int(minutes),seconds)])   
+
     settings_df = pd.DataFrame(settings)
     
     return settings_df
