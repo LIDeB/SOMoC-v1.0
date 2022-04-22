@@ -136,12 +136,13 @@ def Get_input_data():
   
     if input_file is not None:
         name = input_file.name
-        #data1 = pd.read_csv(input_file, delimiter=',', header=0)
-        data = pd.read_csv(input_file)
-        if "SMILES" in data:
-            list_of_smiles = data["SMILES"]
+        data = pd.read_csv(input_file, header = None)
+        if "SMILES" in data.iloc[0].values:
+            new_header = data.iloc[0]
+            data = data[1:]
+            data.columns = new_header
         else:
-            list_of_smiles = data.iloc[:, 0]
+            data.rename(columns = {0: 'SMILES'}, inplace = True)
     else:
         name = Get_name("test/focal_adhesion.csv")
         data = pd.read_csv("test/focal_adhesion.csv", delimiter=',' , index_col=None)
@@ -171,7 +172,7 @@ def Standardize_molecules(data):
     
     time_start = time.time()
     data_ = data.copy()
-    list_of_smiles = data_.iloc[:, 0]
+    list_of_smiles = data['SMILES']
     molec_clean=[]
     s = Standardizer() 
     i = 0
@@ -205,7 +206,7 @@ def Fingerprints_calculator(data):
     time_start = time.time()
     data_ = data.copy()
     if 'mol' not in data_: # Check if already converted
-        data_['mol'] = data_[0].apply(lambda x: Chem.MolFromSmiles(x))
+        data_['mol'] = data_['SMILES'].apply(lambda x: Chem.MolFromSmiles(x))
 
     try:
         _EState = [FingerprintMol(x)[0] for x in data_['mol']] #[0]EState1 [1]EState2
