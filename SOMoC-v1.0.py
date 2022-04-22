@@ -145,7 +145,7 @@ def Get_input_data():
             data.rename(columns = {0: 'SMILES'}, inplace = True)
     else:
         name = Get_name("test/focal_adhesion.csv")
-        data = pd.read_csv("test/focal_adhesion.csv", delimiter=',' , index_col=None)
+        data = pd.read_csv("test/focal_adhesion.csv", delimiter=',' , index_col=None, header = 'infer')
     return data, name
 
 def Download_CSV(df, name:str, filetype:str):
