@@ -12,9 +12,6 @@
 # The following packages are required: SKlearn, RDKit, UMAP, Molvs, validclust and Plotly.
 # Please, meake sure you have them installed before running the program.
 
-import time
-start = time.time()
-
 import pandas as pd
 from array import array
 import time
@@ -39,11 +36,11 @@ from molvs import Standardizer
 ###########################################################################################
 
 # Folder with files
-directory = str(Path(r"C:\Users\adm\Desktop\Pruebas\Clustering\dataset_focal_adhesion"))
-
 # Input file is a .CSV file with one molecule per line in SMILES format.
 # Molecules must be in the first column.
-input_file = "smiles_focal_adhesion.csv"
+input_file = None
+
+test_file = "test/focal_adhesion.csv"
 
 # If you already know the number of clusters in your data, then set K to this value.
 # Otherwise, set K=None to let SOMoC approaximate it by running a range of K values.
@@ -80,24 +77,22 @@ def Get_name(archive):
 def Make_dir(dirName: str):
     """Create a directory and not fail if it already exist"""
     try:
-        os.makedirs(directory + "\\" + dirName)
+        os.makedirs(dirName)
     except FileExistsError:
         pass
 
 
-def Get_input_data(directory, input_file):
+def Get_input_data():
     """Get data from user input or use test dataset"""
-  
-    name = Get_name(directory + "\\" +  input_file)
-    data_raw = pd.read_csv(directory + "\\" +  input_file, delimiter=',', header = None)
-    if "SMILES" in data_raw.iloc[0].values:
-        new_header = data_raw.iloc[0]
-        data_raw = data_raw[1:]
-        data_raw.columns = new_header
+
+    if input_file is not None:
+        name = Get_name(input_file)
+        data = pd.read_csv(input_file, delimiter=',', header=None)
     else:
-        data_raw.rename(columns = {0: 'SMILES'}, inplace = True)
-    print("Number of Molecules: " + str(data_raw.shape[0]))
-    return data_raw, name
+        name = Get_name(test_file)
+        data = pd.read_csv(test_file, delimiter=',', header=None)
+
+    return data, name
 
 
 def Standardize_molecules(data):
@@ -112,7 +107,9 @@ def Standardize_molecules(data):
     molec_clean = []
     s = Standardizer()
 
-    list_of_smiles = data['SMILES']
+    list_of_smiles = data_.iloc[:,0]
+    # list_of_smiles = data['SMILES']
+
     for i, molecule in enumerate(list_of_smiles, start = 1):
         try:
             mol = Chem.MolFromSmiles(molecule)
@@ -253,8 +250,8 @@ def GMM_clustering_final(embeddings, K):
         except:
             print('Something went wrong converting standardized molecules back to SMILES code..')
 
-    data_clustered.to_csv(f'{directory}\\results_SOMoC_{name}\\{name}_Clustered_SOMoC.csv', index=True, header=True)
-    table_metrics.to_csv(f'{directory}\\results_SOMoC_{name}\\{name}_Validation_SOMoC.csv', index=True, header=True)
+    data_clustered.to_csv(f'results_SOMoC_{name}/{name}_Clustered_SOMoC.csv', index=True, header=True)
+    table_metrics.to_csv(f'results_SOMoC_{name}/{name}_Validation_SOMoC.csv', index=True, header=True)
 
     return data_clustered
 
@@ -284,12 +281,12 @@ def Elbow_plot(results):
 
     fig.update_layout(margin=dict(t=60, r=20, b=20, l=20), autosize=True)
 
-    fig.write_html(f'{directory}\\results_SOMoC_{name}\\{name}_elbowplot_SOMoC.html')
+    fig.write_html(f'results_SOMoC_{name}/{name}_elbowplot_SOMoC.html')
 
     print('By dafault SOMoC uses the K which resulted in the highest Silhouette score.')
     print('However, you can check the Silhouette vs. K elbow plot to choose the optimal K, identifying an inflection point in the curve (elbow method)')
     print('Then, re-run SOMoC with a fixed K.')
-    print("Note: Silhouette score is bounded [-1,1], the closer to one the better")
+    print("Note: Silhouette score is bounded [-1,1], the closer to 1 the better")
 
 
 def Distribution_plot(data_clustered):
@@ -314,9 +311,9 @@ def Distribution_plot(data_clustered):
                      tickfont=dict(family='Arial', size=16, color='black'),
                      title_font=dict(size=20, family='Calibri', color='black'))
 
-    fig.write_html(f'{directory}\\results_SOMoC_{name}\\{name}_size_distribution_SOMoC.html')
+    fig.write_html(f'results_SOMoC_{name}/{name}_size_distribution_SOMoC.html')
 
-    sizes.to_csv(f'{directory}\\results_SOMoC_{name}\\{name}_Size_distribution_SOMoC.csv', index=True, header=True)  # Write the .CSV file
+    sizes.to_csv(f'results_SOMoC_{name}/{name}_Size_distribution_SOMoC.csv', index=True, header=True)  # Write the .CSV file
 
     return
 
@@ -383,8 +380,7 @@ def Setting_info():
     settings.append(["Total running time : ", total_time])
     settings.append(["", ""])
     settings_df = pd.DataFrame(settings)
-    settings_df.to_csv(f'{directory}\\results_SOMoC_{name}\\{name}_Settings_SOMoC.csv', index=True, header=False)
-
+    settings_df.to_csv(f'results_SOMoC_{name}/{name}_Settings_SOMoC.csv', index=True, header=False)
     return
 
 ####################################### SOMoC main ########################################
@@ -393,10 +389,12 @@ def Setting_info():
 
 if __name__ == '__main__':
 
+    start = time.time()
+
     print('-'*50)
 
     # Get input data
-    data_raw, name = Get_input_data(directory, input_file)
+    data_raw, name = Get_input_data()
 
     # Create output dir
     Make_dir(f'results_SOMoC_{name}')
@@ -405,7 +403,7 @@ if __name__ == '__main__':
     if smiles_standardization == True:
         data = Standardize_molecules(data_raw)
     else:
-        print('Standardization of molecules was skipped.\n')
+        print('Skipping molecules standardization..\n')
         data = data_raw
 
     # Calculate Fingerprints
@@ -429,14 +427,16 @@ if __name__ == '__main__':
     hours, rem = divmod(end-start, 3600)
     minutes, seconds = divmod(rem, 60)
     total_time = "{:0>2}:{:0>2}:{:05.2f}".format(int(hours),int(minutes),seconds)
-    print(total_time)
 
     # Write the settings file
     settings = Setting_info()
 
     print('='*50)
-
     print('ALL DONE !')
+    print(f'SOMoC run took {total_time}')
+    print('='*50)
+
+
     
 
 
