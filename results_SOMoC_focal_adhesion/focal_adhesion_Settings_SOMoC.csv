@@ -1,0 +1,22 @@
+0,Date: ,25/04/2022
+1,Setings:,
+2,,
+3,Fingerprint type:,EState1
+4,,
+5,UMAP,
+6,n_neighbors:,40
+7,min_dist:,0.0
+8,n_components:,4
+9,random_state:,10
+10,metric:,jaccard
+11,,
+12,GMM,
+13,max Nº of clusters (K):,25
+14,Optimal K:,3
+15,iterations:,10
+16,n_init:,5
+17,init_params,kmeans
+18,covariance_type,tied
+19,,
+20,Total running time : ,00:02:08.33
+21,,
