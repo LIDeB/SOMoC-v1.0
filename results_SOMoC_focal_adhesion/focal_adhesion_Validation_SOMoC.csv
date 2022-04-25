@@ -1,5 +1,0 @@
-,Value,Mean Random,SD Random
-Silhouette score,0.9651,-0.0448,0.01600000075995922
-Davies Bouldin score,0.2216,47.9019,33.2947
-Calinski Harabasz score,17700.8474,0.994,0.9439
-Dunn Index,1.7605,0.0,0.0
