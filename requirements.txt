@@ -1,5 +1,5 @@
 streamlit==1.4.0
-rdkit-pypi
+rdkit-pypi==2021.3.1.2
 validclust
 molvs
 umap-learn
