@@ -494,6 +494,19 @@ if run == True:
     st.markdown(":point_down: **Clustering run settings**")
     st.markdown(Download_CSV(settings_df, name,'settings'), unsafe_allow_html=True)
 
+    
+st.write("""
+### Cite us:
+*iRaPCA and SOMoC: Development and Validation of Web Applications for New Approaches for the Clustering of Small Molecules*
+
+Denis N. Prada Gori, Manuel A. Llanos, Carolina L. Bellera, Alan Talevi, and Lucas N. Alberca
+
+Journal of Chemical Information and Modeling
+
+[DOI: 10.1021/acs.jcim.2c00265](https://pubs.acs.org/doi/10.1021/acs.jcim.2c00265)
+    
+""")        
+    
 # Footer edit
 footer="""<style>
 a:link , a:visited{
