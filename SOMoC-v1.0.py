@@ -177,7 +177,7 @@ def Standardize_molecules(data):
     s = Standardizer() 
     i = 0
     t = st.empty()
-
+    st.write(data_)
     for molecule in list_of_smiles:
         t.markdown(f"Processing molecule {i+1} / {len(list_of_smiles)}")
         i = i+1
@@ -193,7 +193,7 @@ def Standardize_molecules(data):
             st.write(f'Something went wrong with molecule number {i}')
 
     data_['mol'] = molec_clean
-    st.write(data_)
+    
     st.write(f'Standardization took {round(time.time()-time_start)} seconds')
     st.markdown("-------------------")
     
