@@ -205,6 +205,7 @@ def Fingerprints_calculator(data):
     st.markdown("**Encoding**")
     time_start = time.time()
     data_ = data.copy()
+    st.write(data_)
     if 'mol' not in data_: # Check if already converted
         data_['mol'] = data_['SMILES'].apply(lambda x: Chem.MolFromSmiles(x))
 
@@ -214,7 +215,7 @@ def Fingerprints_calculator(data):
     except:
         st.error("**Oh no! There was a problem with Fingerprint calculation of some smiles.**  :confused:")
         st.markdown(" :point_down: **Try using our standarization tool before clustering **")
-        st.write("[LIDeB Standarization tool](https://share.streamlit.io/capigol/lbb-game/main/juego_lbb.py)")
+        st.write("[LIDeB Standarization tool](https://lideb-listo.streamlit.app)")
         st.stop()
 
     st.write("Calculating EState molecular fingerprints...")
