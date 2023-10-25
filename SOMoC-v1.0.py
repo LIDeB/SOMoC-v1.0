@@ -191,8 +191,8 @@ def Standardize_molecules(data):
             molec_clean.append(estandarizada)
         except:
             st.write(f'Something went wrong with molecule number {i}')
-    st.write(data_)
-    st.write(molec_clean)
+    #st.write(data_)
+    #st.write(molec_clean)
     data_.insert(1, 'mol', molec_clean)
 
     #data_['mol'] = molec_clean
@@ -206,7 +206,7 @@ def Fingerprints_calculator(data):
     st.markdown("**Encoding**")
     time_start = time.time()
     data_ = data.copy()
-    
+    st.write(data_)
     if 'mol' not in data_: # Check if already converted
         data_['mol'] = data_['SMILES'].apply(lambda x: Chem.MolFromSmiles(x))
     else:
