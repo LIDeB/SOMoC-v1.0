@@ -204,7 +204,7 @@ def Fingerprints_calculator(data):
     st.markdown("**Encoding**")
     time_start = time.time()
     data_ = data.copy()
-    st.write(data_)
+
     if 'mol' not in data_: # Check if already converted
         data_['mol'] = data_['SMILES'].apply(lambda x: Chem.MolFromSmiles(x))
     else:
