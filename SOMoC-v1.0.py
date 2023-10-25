@@ -211,8 +211,9 @@ def Fingerprints_calculator(data):
         data_['mol'] = data_['SMILES'].apply(lambda x: Chem.MolFromSmiles(x))
     else:
         pass
+    _EState = [FingerprintMol(x)[0] for x in data_['mol']] #[0]EState1 [1]EState2
     try:
-        _EState = data_['mol'].apply(lambda x: FingerprintMol(x)[0] if x is not None else None) #[0]EState1 [1]EState2
+        #_EState = data_['mol'].apply(lambda x: FingerprintMol(x)[0] if x is not None else None) #[0]EState1 [1]EState2
         #_EState = [ for x in list(data_['mol'])] #[0]EState1 [1]EState2
         EState = np.stack(_EState, axis=0)
     except:
