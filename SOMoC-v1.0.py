@@ -197,7 +197,7 @@ def Standardize_molecules(data):
     print(data_)
     st.write(f'Standardization took {round(time.time()-time_start)} seconds')
     st.markdown("-------------------")
-    
+    st.write(data_)
     return data_
 
 def Fingerprints_calculator(data):
