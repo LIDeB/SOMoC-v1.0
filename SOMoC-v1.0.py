@@ -146,7 +146,6 @@ def Get_input_data():
     else:
         name = Get_name("test/focal_adhesion.csv")
         data = pd.read_csv("test/focal_adhesion.csv", delimiter=',' , index_col=None, header = 'infer')
-        st.write(data)
     return data, name
 
 def Download_CSV(df, name:str, filetype:str):
@@ -173,12 +172,11 @@ def Standardize_molecules(data):
     
     time_start = time.time()
     data_ = data.copy()
-    list_of_smiles = data['SMILES']
+    list_of_smiles = list(data['SMILES'])
     molec_clean=[]
     s = Standardizer() 
     i = 0
     t = st.empty()
-    st.write(list_of_smiles)
     for molecule in list_of_smiles:
         t.markdown(f"Processing molecule {i+1} / {len(list_of_smiles)}")
         i = i+1
