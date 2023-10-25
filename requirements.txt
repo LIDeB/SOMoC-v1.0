@@ -1,5 +1,6 @@
-streamlit
-rdkit-pypi==2021.3.1.2
+streamlit==1.5.1
+numpy==1.21.6
+rdkit-pypi==2022.9.5
 validclust
 molvs
 umap-learn
