@@ -213,7 +213,7 @@ def Fingerprints_calculator(data):
         pass
     try:
         _EState = [FingerprintMol(x)[0] for x in list(data_['mol'])] #[0]EState1 [1]EState2
-        EState = np.stack(_EState, axis=0)
+        #EState = np.stack(_EState, axis=0)
     except:
         st.error("**Oh no! There was a problem with Fingerprint calculation of some smiles.**  :confused:")
         st.markdown(" :point_down: **Try using our standarization tool before clustering **")
@@ -223,7 +223,7 @@ def Fingerprints_calculator(data):
     st.write("Calculating EState molecular fingerprints...")
     st.write(f'Fingerprints calculation took {round(time.time()-time_start)} seconds')
 
-    return EState # X data, fingerprints values as a np array
+    return _EState # X data, fingerprints values as a np array
 
 def UMAP_reduction(X: array):
     """Reduce feature space using the UMAP algorithm"""
