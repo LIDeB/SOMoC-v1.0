@@ -172,9 +172,8 @@ def Standardize_molecules(data):
     
     time_start = time.time()
     data_ = data.copy()
-    list_of_smiles = list(data['SMILES'])
+    list_of_smiles = list(data_['SMILES'])
  
-    st.write(type(list_of_smiles))
     molec_clean=[]
     s = Standardizer() 
     i = 0
@@ -192,7 +191,7 @@ def Standardize_molecules(data):
             molec_clean.append(estandarizada)
         except:
             st.write(f'Something went wrong with molecule number {i}')
-    st.write(data_)
+    st.write(molec_clean)
     data_['mol'] = molec_clean
     print(data_)
     st.write(f'Standardization took {round(time.time()-time_start)} seconds')
