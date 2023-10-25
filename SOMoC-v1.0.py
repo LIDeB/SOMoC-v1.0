@@ -191,8 +191,8 @@ def Standardize_molecules(data):
             molec_clean.append(estandarizada)
         except:
             st.write(f'Something went wrong with molecule number {i}')
-    data_['mol'] = molec_clean
     st.write(data_)
+    data_['mol'] = molec_clean
     st.write(f'Standardization took {round(time.time()-time_start)} seconds')
     st.markdown("-------------------")
     return data_
