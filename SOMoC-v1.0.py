@@ -173,7 +173,8 @@ def Standardize_molecules(data):
     time_start = time.time()
     data_ = data.copy()
     list_of_smiles = list(data['SMILES'])
-    st.write(list_of_smiles)
+ 
+    st.write(type(list_of_smiles))
     molec_clean=[]
     s = Standardizer() 
     i = 0
