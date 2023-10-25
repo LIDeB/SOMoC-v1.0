@@ -193,7 +193,7 @@ def Standardize_molecules(data):
             st.write(f'Something went wrong with molecule number {i}')
     st.write(data_)
     st.write(molec_clean)
-    dataframe.insert(1, 'mol', molec_clean)
+    data_.insert(1, 'mol', molec_clean)
 
     #data_['mol'] = molec_clean
     st.write(f'Standardization took {round(time.time()-time_start)} seconds')
