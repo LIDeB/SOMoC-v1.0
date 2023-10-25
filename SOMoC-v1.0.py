@@ -191,8 +191,6 @@ def Standardize_molecules(data):
             molec_clean.append(estandarizada)
         except:
             st.write(f'Something went wrong with molecule number {i}')
-    #st.write(data_)
-    #st.write(molec_clean)
     data_.insert(1, 'mol', molec_clean)
 
     #data_['mol'] = molec_clean
@@ -461,7 +459,6 @@ if run == True:
         data = data_raw
 
     # Calculate Fingerprints
-    st.write(data)
     X = Fingerprints_calculator(data)
     
     st.markdown("-------------------")
