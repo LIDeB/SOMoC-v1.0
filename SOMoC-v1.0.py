@@ -191,9 +191,7 @@ def Standardize_molecules(data):
             molec_clean.append(estandarizada)
         except:
             st.write(f'Something went wrong with molecule number {i}')
-    st.write(molec_clean)
     data_['mol'] = molec_clean
-    print(data_)
     st.write(f'Standardization took {round(time.time()-time_start)} seconds')
     st.markdown("-------------------")
     return data_
@@ -204,10 +202,11 @@ def Fingerprints_calculator(data):
     st.markdown("**Encoding**")
     time_start = time.time()
     data_ = data.copy()
-    
+    st.write(data_)
     if 'mol' not in data_: # Check if already converted
         data_['mol'] = data_['SMILES'].apply(lambda x: Chem.MolFromSmiles(x))
-
+    else:
+        pass
     try:
         _EState = [FingerprintMol(x)[0] for x in data_['mol']] #[0]EState1 [1]EState2
         EState = np.stack(_EState, axis=0)
