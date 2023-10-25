@@ -146,6 +146,7 @@ def Get_input_data():
     else:
         name = Get_name("test/focal_adhesion.csv")
         data = pd.read_csv("test/focal_adhesion.csv", delimiter=',' , index_col=None, header = 'infer')
+        st.write(data)
     return data, name
 
 def Download_CSV(df, name:str, filetype:str):
