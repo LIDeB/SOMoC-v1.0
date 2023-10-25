@@ -178,7 +178,7 @@ def Standardize_molecules(data):
     s = Standardizer() 
     i = 0
     t = st.empty()
-
+    st.write(list_of_smiles)
     for molecule in list_of_smiles:
         t.markdown(f"Processing molecule {i+1} / {len(list_of_smiles)}")
         i = i+1
@@ -197,7 +197,6 @@ def Standardize_molecules(data):
     print(data_)
     st.write(f'Standardization took {round(time.time()-time_start)} seconds')
     st.markdown("-------------------")
-    st.write(data_)
     return data_
 
 def Fingerprints_calculator(data):
