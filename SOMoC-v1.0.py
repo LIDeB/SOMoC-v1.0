@@ -212,7 +212,7 @@ def Fingerprints_calculator(data):
     else:
         pass
     try:
-        _EState = [FingerprintMol(x)[0] for x in data_['mol']] #[0]EState1 [1]EState2
+        _EState = [FingerprintMol(x)[0] for x in list(data_['mol']]) #[0]EState1 [1]EState2
         EState = np.stack(_EState, axis=0)
     except:
         st.error("**Oh no! There was a problem with Fingerprint calculation of some smiles.**  :confused:")
