@@ -7,4 +7,5 @@ molvs
 umap-learn
 plotly
 click==7.1.2
+altair==4.2.2
 protobuf~=3.20.0
